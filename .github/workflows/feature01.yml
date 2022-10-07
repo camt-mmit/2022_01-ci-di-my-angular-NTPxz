@@ -23,7 +23,7 @@ jobs:
       - name: install dependencies
         run: yarn install --frozen-lockfile
       - name: Build project
-        run: npx ng build --configutation=production --base-href="/${{ github.event.repository.name }}/"
+        run: npx ng build --configulation=production --base-href="/${{ github.event.repository.name }}/"
       - name: Lint project
         run: yarn run lint
       - name: Test project
