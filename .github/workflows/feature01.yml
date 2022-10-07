@@ -19,7 +19,7 @@ jobs:
           git config --global user.email "{{ github.event.pusher.email }}"
           git config --global user.name "${{ github.actor }}"
       - name: install yarn
-        run: yarn install -g yarn
+        run: npm install -g yarn
       - name: install dependencies
         run: yarn install --frozen-lockfile
       - name: Build project
