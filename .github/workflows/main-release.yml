@@ -1,0 +1,30 @@
+name: deploy-gh-pages
+run-name: ${{ github.actor }} is deploying gh-pages
+on:
+  push:
+    tags:
+      - v*.*.*
+jobs:
+  ci-main:
+    runs-on: ubuntu-latest
+    env:
+      TAG_NAME: ${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secret.PUSH_MAIN }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - run: |
+          git config --global user.email "${{ github.event.pusher.email }}"
+          git config --global user.name "{{ github.actor }}"
+      - name: Release main
+        run: action/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false

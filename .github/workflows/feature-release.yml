@@ -1,14 +1,14 @@
-name: deploy-gh-pages
-run-name: ${{ github.actor }} is deploying gh-pages
+name: feature-release
+run-name: ${{ github.actor }} is releasing feature
 on:
   push:
     branches:
-      - "master"
+      - b*.*.*
 jobs:
-  deploy-gh-pages:
+  ci-feature:
     runs-on: ubuntu-latest
     env:
-      BRANCH_NAME: ${{ github.ref }}
+      TAG_NAME: ${{ github.ref }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -16,6 +16,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
+      - name: Setup environment variables
+        run: |
+
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "BRANCH NAME="
       - run: |
           git config --global user.email "${{ github.event.pusher.email }}"
           git config --global user.name "{{ github.actor }}"
