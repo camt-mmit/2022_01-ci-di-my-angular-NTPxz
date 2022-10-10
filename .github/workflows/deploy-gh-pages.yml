@@ -18,8 +18,8 @@ jobs:
           git config --global user.email "${{ github.event.pusher.email }}"
           git config --global user.name "{{ github.actor }}"
       - run: npm install -g yarn
-      - run: yarn install
-      - run: |
-          git remote set-url origin \
-          https://git:${{ github.token }}@github.com/${{ github.repository }}.git
-      - run: yarn run deploy
+      - run: yarn install --frozen-lockfile
+      - name: Lint project
+        run: yarn run lint
+      - name: Test project
+        run: yarn run test:ci
