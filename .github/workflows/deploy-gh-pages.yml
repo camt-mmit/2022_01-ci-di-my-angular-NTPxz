@@ -31,4 +31,4 @@
 #           git merge${{ env.BRANCH_NAME }}
 #           git push origin master
 #           git tag -a ${{ env.BRANCH_NAME }} -m "my version ${{ env.BRANCH_NAME }}"
-#           git push origin master --tags
+#           git push origin master --tags  //
