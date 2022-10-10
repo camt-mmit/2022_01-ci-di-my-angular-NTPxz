@@ -1,11 +1,11 @@
-name: deploy-gh-pages
-run-name: ${{ github.actor }} is deploying gh-pages
+name: master release
+run-name: ${{ github.actor }} is releasing master
 on:
   push:
     tags:
       - v*.*.*
 jobs:
-  ci-main:
+  ci-master:
     runs-on: ubuntu-latest
     env:
       TAG_NAME: ${{ github.ref }}
@@ -16,11 +16,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
-      - run: |
+      - name: Setup git user
+        run: |
           git config --global user.email "${{ github.event.pusher.email }}"
-          git config --global user.name "{{ github.actor }}"
-      - name: Release main
-        run: action/create-release@v1
+          git config --global user.name "${{ github.actor }}"
+      - name: Release master
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
