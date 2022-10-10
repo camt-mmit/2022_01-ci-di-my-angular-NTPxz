@@ -3,7 +3,10 @@
   "version": 1,
   "cli": {
     "packageManager": "yarn",
-    "analytics": "01bec6ab-8e61-494c-b319-899b3ce7f7e3"
+    "analytics": "01bec6ab-8e61-494c-b319-899b3ce7f7e3",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -101,6 +104,15 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
